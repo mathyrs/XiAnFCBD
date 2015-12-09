@@ -11,6 +11,7 @@ import com.inspur.util.DBTools;
 
 public class UserDaoImpl implements IUserDao {
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public User find(String userName, String userPwd) {
 		// TODO Auto-generated method stub
@@ -20,7 +21,7 @@ public class UserDaoImpl implements IUserDao {
 		User user = null;
 		try {
 			user = (User) DBOpera
-					.select("SELECT * FROM TUser WHERE login_name = ? AND password = ?;",
+					.select("SELECT * FROM TUser WHERE login_name = ? AND login_password = ?;",
 							new BeanHandler(User.class), params);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -33,9 +34,19 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public void add(User user) {
+	public void add(User user) throws SQLException {
 		// TODO Auto-generated method stub
-
+		String[] params = new String[6];
+		params[0] = user.getOrg_id();
+		params[1] = user.getLogin_name();
+		params[2] = user.getLogin_password();
+		params[3] = user.getUser_name();
+		params[4] = user.getEmail();
+		params[5] = user.getGen_time().toString();
+		
+		
+		DBOpera.update("INSERT INTO TUser (org_id, login_name, login_password, user_name, email, gen_time) VALUES ( ?, ?, ?, ?, ?, ?);", params);
+		
 	}
 
 	@Override

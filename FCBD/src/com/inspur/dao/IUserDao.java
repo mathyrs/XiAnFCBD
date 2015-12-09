@@ -16,7 +16,7 @@ public interface IUserDao {
      * 添加用户
      * @param user
      */
-    void add(User user);
+    void add(User user) throws Exception;
 
     /**根据用户名来查找用户
      * @param userName

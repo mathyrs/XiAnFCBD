@@ -2,8 +2,10 @@ package com.inspur.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +32,21 @@ public class LoginServlet extends HttpServlet {
 		UserServiceImpl usi = new UserServiceImpl();
 		String userName = request.getParameter("user");
 		String userPwd = request.getParameter("password");
-		System.out.println(userName);
-		System.out.println(userPwd);
+		/*
+		Class req = request.getClass();
+		Method[] methods= req.getMethods();
+		System.out.println(req.getName());
+		for (int i = 0; i < methods.length; i++) {
+			System.out.println(methods[i].toString());
+		}
+		*/
+		//for test and study
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cook : cookies) {
+			System.out.println(cook.getValue());
+		}
+		
+		
 		user = usi.loginUser(userName, userPwd);
 		if (null != user) {
 			request.getSession().setAttribute("user", user);
