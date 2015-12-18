@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type='text/xml href='Unit2.xml'?>
+
+<空军>
+    <firstLevelUnit name="沈空" ID="11">
+        <secondLevelUnit name="大连基地" ID="111">
+            <thirdLevelUnit name="装备部" ID="11121"/>
+            <thirdLevelUnit name="空88旅" ID="11122"/>
+            <thirdLevelUnit name="空89旅" ID="11123"/>
+            <thirdLevelUnit name="空90旅" ID="11124"/>
+            <thirdLevelUnit name="空91旅" ID="11125"/>
+            <thirdLevelUnit name="27团" ID="11127"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空1师" ID="1121">
+            <thirdLevelUnit name="装备部" ID="11211"/>
+            <thirdLevelUnit name="1团" ID="11212"/>
+            <thirdLevelUnit name="2团" ID="11213"/>
+            <thirdLevelUnit name="3团" ID="11214"/>
+            <thirdLevelUnit name="运五中队" ID="11217"/>
+            <thirdLevelUnit name="场站" ID="11219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空11师" ID="1122">
+            <thirdLevelUnit name="装备部" ID="11221"/>
+            <thirdLevelUnit name="31团" ID="11222"/>
+            <thirdLevelUnit name="32团" ID="11223"/>
+            <thirdLevelUnit name="33团" ID="11225"/>
+            <thirdLevelUnit name="运五中队" ID="11227"/>
+            <thirdLevelUnit name="场站" ID="11229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空21师" ID="1123">
+            <thirdLevelUnit name="装备部" ID="11231"/>
+            <thirdLevelUnit name="61团" ID="11232"/>
+            <thirdLevelUnit name="62团" ID="11233"/>
+            <thirdLevelUnit name="63团" ID="11234"/>
+            <thirdLevelUnit name="运五中队" ID="11237"/>
+            <thirdLevelUnit name="场站" ID="11239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空30师" ID="1124">
+            <thirdLevelUnit name="装备部" ID="11241"/>
+            <thirdLevelUnit name="运五中队" ID="11247"/>
+            <thirdLevelUnit name="场站" ID="11249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空16师" ID="1125">
+            <thirdLevelUnit name="装备部" ID="11251"/>
+            <thirdLevelUnit name="46团" ID="11255"/>
+            <thirdLevelUnit name="47团" ID="11256"/>
+            <thirdLevelUnit name="48团" ID="11257"/>
+            <thirdLevelUnit name="运输搜救大队" ID="11258"/>
+            <thirdLevelUnit name="场站" ID="11259"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="3飞院" ID="1127">
+            <thirdLevelUnit name="装备部" ID="11271"/>
+            <thirdLevelUnit name="修理厂" ID="11276"/>
+            <thirdLevelUnit name="运五中队" ID="11277"/>
+            <thirdLevelUnit name="场站" ID="11279"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="哈尔滨飞行学院" ID="115">
+            <thirdLevelUnit name="装备部" ID="11511"/>
+            <thirdLevelUnit name="第1训练旅" ID="11521"/>
+            <thirdLevelUnit name="第2训练旅" ID="11522"/>
+            <thirdLevelUnit name="第3训练旅" ID="11523"/>
+            <thirdLevelUnit name="第4训练旅" ID="11524"/>
+            <thirdLevelUnit name="第5训练旅" ID="11525"/>
+            <thirdLevelUnit name="修理厂" ID="11552"/>
+            <thirdLevelUnit name="场站" ID="11592"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="场站" ID="11999"/>
+    </firstLevelUnit>
+    <firstLevelUnit name="北空" ID="12">
+        <secondLevelUnit name="空7师" ID="1221">
+            <thirdLevelUnit name="装备部" ID="12211"/>
+            <thirdLevelUnit name="19团" ID="12212"/>
+            <thirdLevelUnit name="21团" ID="12214"/>
+            <thirdLevelUnit name="20团" ID="12215"/>
+            <thirdLevelUnit name="运五中队" ID="12217"/>
+            <thirdLevelUnit name="场站" ID="12219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空15师" ID="1222">
+            <thirdLevelUnit name="装备部" ID="12221"/>
+            <thirdLevelUnit name="43团" ID="12222"/>
+            <thirdLevelUnit name="45团" ID="12223"/>
+            <thirdLevelUnit name="44团" ID="12224"/>
+            <thirdLevelUnit name="运五中队" ID="12227"/>
+            <thirdLevelUnit name="场站" ID="12229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空24师" ID="1223">
+            <thirdLevelUnit name="装备部" ID="12231"/>
+            <thirdLevelUnit name="70团" ID="12232"/>
+            <thirdLevelUnit name="72团" ID="12233"/>
+            <thirdLevelUnit name="表演队" ID="12234"/>
+            <thirdLevelUnit name="运五中队" ID="12237"/>
+            <thirdLevelUnit name="场站" ID="12239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="训练基地" ID="1224">
+            <thirdLevelUnit name="装备部" ID="12241"/>
+            <thirdLevelUnit name="运五中队" ID="12247"/>
+            <thirdLevelUnit name="场站" ID="12249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="6飞院" ID="1226">
+            <thirdLevelUnit name="装备部" ID="12261"/>
+            <thirdLevelUnit name="1团" ID="12262"/>
+            <thirdLevelUnit name="修理厂" ID="12266"/>
+            <thirdLevelUnit name="运五中队" ID="12267"/>
+            <thirdLevelUnit name="场站" ID="12269"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="石家庄飞行学院" ID="125">
+            <thirdLevelUnit name="装备部" ID="12511"/>
+            <thirdLevelUnit name="第1训练旅" ID="12521"/>
+            <thirdLevelUnit name="第2训练旅" ID="12522"/>
+            <thirdLevelUnit name="第3训练旅" ID="12523"/>
+            <thirdLevelUnit name="第4训练旅" ID="12524"/>
+            <thirdLevelUnit name="储存大队" ID="12531"/>
+            <thirdLevelUnit name="场站" ID="12592"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="航运团" ID="12991"/>
+        <secondLevelUnit name="侦5团" ID="12992"/>
+        <secondLevelUnit name="训练基地1团" ID="12995"/>
+        <secondLevelUnit name="场站" ID="12999"/>
+    </firstLevelUnit>
+    <firstLevelUnit name="兰空" ID="13">
+        <secondLevelUnit name="乌鲁木齐基地" ID="131">
+            <thirdLevelUnit name="装备部" ID="13121"/>
+            <thirdLevelUnit name="空109旅" ID="13122"/>
+            <thirdLevelUnit name="空110旅" ID="13123"/>
+            <thirdLevelUnit name="空111旅" ID="13124"/>
+            <thirdLevelUnit name="运输机大队" ID="13125"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空6师" ID="1321">
+            <thirdLevelUnit name="装备部" ID="13211"/>
+            <thirdLevelUnit name="16团" ID="13212"/>
+            <thirdLevelUnit name="18团" ID="13213"/>
+            <thirdLevelUnit name="修理厂" ID="13214"/>
+            <thirdLevelUnit name="17团" ID="13215"/>
+            <thirdLevelUnit name="运五中队" ID="13217"/>
+            <thirdLevelUnit name="场站" ID="13219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空36师" ID="1322">
+            <thirdLevelUnit name="装备部" ID="13221"/>
+            <thirdLevelUnit name="107团" ID="13222"/>
+            <thirdLevelUnit name="108团" ID="13223"/>
+            <thirdLevelUnit name="106团" ID="13224"/>
+            <thirdLevelUnit name="修理厂" ID="13225"/>
+            <thirdLevelUnit name="运五中队" ID="13227"/>
+            <thirdLevelUnit name="场站" ID="13229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空37师" ID="1323">
+            <thirdLevelUnit name="装备部" ID="13231"/>
+            <thirdLevelUnit name="修理厂" ID="13235"/>
+            <thirdLevelUnit name="运五中队" ID="13237"/>
+            <thirdLevelUnit name="场站" ID="13239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="5飞院" ID="1324">
+            <thirdLevelUnit name="装备部" ID="13241"/>
+            <thirdLevelUnit name="运五中队" ID="13247"/>
+            <thirdLevelUnit name="场站" ID="13249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="西安飞行学院" ID="135">
+            <thirdLevelUnit name="装备部" ID="13511"/>
+            <thirdLevelUnit name="第1训练旅" ID="13521"/>
+            <thirdLevelUnit name="第2训练旅" ID="13522"/>
+            <thirdLevelUnit name="第3训练旅" ID="13523"/>
+            <thirdLevelUnit name="第4训练旅" ID="13524"/>
+            <thirdLevelUnit name="第5训练旅" ID="13525"/>
+            <thirdLevelUnit name="场站" ID="13592"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="航运团" ID="13992"/>
+        <secondLevelUnit name="场站" ID="13999"/>
+    </firstLevelUnit>
+    <firstLevelUnit name="济空" ID="14">
+        <secondLevelUnit name="空5师" ID="1421">
+            <thirdLevelUnit name="装备部" ID="14211"/>
+            <thirdLevelUnit name="13团" ID="14212"/>
+            <thirdLevelUnit name="14团" ID="14213"/>
+            <thirdLevelUnit name="15团" ID="14214"/>
+            <thirdLevelUnit name="运五中队" ID="14217"/>
+            <thirdLevelUnit name="场站" ID="14219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空12师" ID="1422">
+            <thirdLevelUnit name="装备部" ID="14221"/>
+            <thirdLevelUnit name="34团" ID="14222"/>
+            <thirdLevelUnit name="35团" ID="14223"/>
+            <thirdLevelUnit name="36团" ID="14224"/>
+            <thirdLevelUnit name="运五中队" ID="14227"/>
+            <thirdLevelUnit name="场站" ID="14229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空19师" ID="1423">
+            <thirdLevelUnit name="装备部" ID="14231"/>
+            <thirdLevelUnit name="55团" ID="14232"/>
+            <thirdLevelUnit name="56团" ID="14233"/>
+            <thirdLevelUnit name="修理厂" ID="14234"/>
+            <thirdLevelUnit name="57团" ID="14236"/>
+            <thirdLevelUnit name="运五中队" ID="14237"/>
+            <thirdLevelUnit name="场站" ID="14239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="13飞院" ID="1424">
+            <thirdLevelUnit name="2团" ID="14243"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空32师" ID="1425">
+            <thirdLevelUnit name="装备部" ID="14251"/>
+            <thirdLevelUnit name="94团" ID="14252"/>
+            <thirdLevelUnit name="95团" ID="14253"/>
+            <thirdLevelUnit name="96团" ID="14255"/>
+            <thirdLevelUnit name="运五中队" ID="14257"/>
+            <thirdLevelUnit name="场站" ID="14259"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="航运团" ID="14991"/>
+        <secondLevelUnit name="储存中心" ID="14992"/>
+    </firstLevelUnit>
+    <firstLevelUnit name="南空" ID="15">
+        <secondLevelUnit name="上海基地" ID="151">
+            <thirdLevelUnit name="装备部" ID="15121"/>
+            <thirdLevelUnit name="空78旅" ID="15122"/>
+            <thirdLevelUnit name="空85旅" ID="15123"/>
+            <thirdLevelUnit name="空86旅" ID="15124"/>
+            <thirdLevelUnit name="空93旅" ID="15125"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空3师" ID="1521">
+            <thirdLevelUnit name="装备部" ID="15211"/>
+            <thirdLevelUnit name="7团" ID="15212"/>
+            <thirdLevelUnit name="8团" ID="15213"/>
+            <thirdLevelUnit name="9团" ID="15214"/>
+            <thirdLevelUnit name="修理厂" ID="15215"/>
+            <thirdLevelUnit name="运五中队" ID="15217"/>
+            <thirdLevelUnit name="场站" ID="15219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空10师" ID="1522">
+            <thirdLevelUnit name="装备部" ID="15221"/>
+            <thirdLevelUnit name="28团" ID="15222"/>
+            <thirdLevelUnit name="29团" ID="15223"/>
+            <thirdLevelUnit name="修理厂" ID="15225"/>
+            <thirdLevelUnit name="运五中队" ID="15227"/>
+            <thirdLevelUnit name="场站" ID="15229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空14师" ID="1523">
+            <thirdLevelUnit name="装备部" ID="15231"/>
+            <thirdLevelUnit name="40团" ID="15232"/>
+            <thirdLevelUnit name="42团" ID="15234"/>
+            <thirdLevelUnit name="41团" ID="15235"/>
+            <thirdLevelUnit name="运五中队" ID="15237"/>
+            <thirdLevelUnit name="场站" ID="15239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空26师" ID="1524">
+            <thirdLevelUnit name="装备部" ID="15241"/>
+            <thirdLevelUnit name="76团" ID="15243"/>
+            <thirdLevelUnit name="77团" ID="15244"/>
+            <thirdLevelUnit name="运五中队" ID="15247"/>
+            <thirdLevelUnit name="场站" ID="15249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空28师" ID="1525">
+            <thirdLevelUnit name="装备部" ID="15251"/>
+            <thirdLevelUnit name="82团" ID="15252"/>
+            <thirdLevelUnit name="83团" ID="15253"/>
+            <thirdLevelUnit name="84团" ID="15254"/>
+            <thirdLevelUnit name="运五中队" ID="15257"/>
+            <thirdLevelUnit name="场站" ID="15259"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空29师" ID="1526">
+            <thirdLevelUnit name="装备部" ID="15261"/>
+            <thirdLevelUnit name="运五中队" ID="15267"/>
+            <thirdLevelUnit name="场站" ID="15269"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="无人机旅" ID="1527">
+            <thirdLevelUnit name="场站" ID="15279"/>
+        </secondLevelUnit>
+    </firstLevelUnit>
+    <firstLevelUnit name="广空" ID="16">
+        <secondLevelUnit name="南宁基地" ID="161">
+            <thirdLevelUnit name="装备部" ID="16121"/>
+            <thirdLevelUnit name="空124旅" ID="16122"/>
+            <thirdLevelUnit name="空125旅" ID="16123"/>
+            <thirdLevelUnit name="空126旅" ID="16124"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空2师" ID="1621">
+            <thirdLevelUnit name="装备部" ID="16211"/>
+            <thirdLevelUnit name="5团" ID="16213"/>
+            <thirdLevelUnit name="6团" ID="16214"/>
+            <thirdLevelUnit name="修理厂" ID="16215"/>
+            <thirdLevelUnit name="4团" ID="16216"/>
+            <thirdLevelUnit name="运五中队" ID="16217"/>
+            <thirdLevelUnit name="场站" ID="16219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空8师" ID="1622">
+            <thirdLevelUnit name="装备部" ID="16221"/>
+            <thirdLevelUnit name="22团" ID="16222"/>
+            <thirdLevelUnit name="24团" ID="16223"/>
+            <thirdLevelUnit name="23团" ID="16224"/>
+            <thirdLevelUnit name="修理厂" ID="16225"/>
+            <thirdLevelUnit name="运五中队" ID="16227"/>
+            <thirdLevelUnit name="场站" ID="16229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空9师" ID="1623">
+            <thirdLevelUnit name="装备部" ID="16231"/>
+            <thirdLevelUnit name="25团" ID="16232"/>
+            <thirdLevelUnit name="26团" ID="16233"/>
+            <thirdLevelUnit name="运五中队" ID="16237"/>
+            <thirdLevelUnit name="场站" ID="16239"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空13师" ID="1624">
+            <thirdLevelUnit name="装备部" ID="16241"/>
+            <thirdLevelUnit name="37团" ID="16242"/>
+            <thirdLevelUnit name="38团" ID="16243"/>
+            <thirdLevelUnit name="39团" ID="16244"/>
+            <thirdLevelUnit name="修理厂" ID="16245"/>
+            <thirdLevelUnit name="运五中队" ID="16247"/>
+            <thirdLevelUnit name="场站" ID="16249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空18师" ID="1625">
+            <thirdLevelUnit name="装备部" ID="16251"/>
+            <thirdLevelUnit name="52团" ID="16252"/>
+            <thirdLevelUnit name="54团" ID="16253"/>
+            <thirdLevelUnit name="53团" ID="16254"/>
+            <thirdLevelUnit name="运五中队" ID="16257"/>
+            <thirdLevelUnit name="场站" ID="16259"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空42师" ID="1627">
+            <thirdLevelUnit name="装备部" ID="16271"/>
+            <thirdLevelUnit name="运五中队" ID="16277"/>
+            <thirdLevelUnit name="场站" ID="16279"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="驻港团" ID="16993"/>
+        <secondLevelUnit name="场站" ID="16999"/>
+    </firstLevelUnit>
+    <firstLevelUnit name="成空" ID="17">
+        <secondLevelUnit name="空33师" ID="1721">
+            <thirdLevelUnit name="装备部" ID="17211"/>
+            <thirdLevelUnit name="97团" ID="17212"/>
+            <thirdLevelUnit name="98团" ID="17213"/>
+            <thirdLevelUnit name="99团" ID="17214"/>
+            <thirdLevelUnit name="运五中队" ID="17217"/>
+            <thirdLevelUnit name="场站" ID="17219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空44师" ID="1722">
+            <thirdLevelUnit name="装备部" ID="17221"/>
+            <thirdLevelUnit name="130团" ID="17222"/>
+            <thirdLevelUnit name="131团" ID="17223"/>
+            <thirdLevelUnit name="132团" ID="17224"/>
+            <thirdLevelUnit name="运五中队" ID="17227"/>
+            <thirdLevelUnit name="场站" ID="17229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空4师" ID="1724">
+            <thirdLevelUnit name="装备部" ID="17241"/>
+            <thirdLevelUnit name="10团" ID="17242"/>
+            <thirdLevelUnit name="11团" ID="17243"/>
+            <thirdLevelUnit name="12团" ID="17244"/>
+            <thirdLevelUnit name="场站" ID="17249"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空20师" ID="1725">
+            <thirdLevelUnit name="装备部" ID="17251"/>
+            <thirdLevelUnit name="58团" ID="17252"/>
+            <thirdLevelUnit name="59团" ID="17253"/>
+            <thirdLevelUnit name="心理战大队" ID="17254"/>
+            <thirdLevelUnit name="运五中队" ID="17257"/>
+            <thirdLevelUnit name="场站" ID="17259"/>
+        </secondLevelUnit>
+    </firstLevelUnit>
+    <firstLevelUnit name="空直" ID="18">
+        <secondLevelUnit name="15军" ID="181">
+            <thirdLevelUnit name="外场处" ID="1811"/>
+            <thirdLevelUnit name="航运团" ID="18192"/>
+            <thirdLevelUnit name="直升机大队" ID="18193"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="空34师" ID="1821">
+            <thirdLevelUnit name="装备部" ID="18211"/>
+            <thirdLevelUnit name="100团" ID="18212"/>
+            <thirdLevelUnit name="101团" ID="18213"/>
+            <thirdLevelUnit name="102团" ID="18214"/>
+            <thirdLevelUnit name="修理厂" ID="18215"/>
+            <thirdLevelUnit name="运五中队" ID="18217"/>
+            <thirdLevelUnit name="场站" ID="18219"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="飞训基地" ID="1822">
+            <thirdLevelUnit name="装备部" ID="18221"/>
+            <thirdLevelUnit name="1团" ID="18222"/>
+            <thirdLevelUnit name="2团" ID="18223"/>
+            <thirdLevelUnit name="3团" ID="18224"/>
+            <thirdLevelUnit name="修理厂" ID="18225"/>
+            <thirdLevelUnit name="运五中队" ID="18227"/>
+            <thirdLevelUnit name="场站" ID="18229"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="试训基地" ID="1823">
+            <thirdLevelUnit name="技术部" ID="18231"/>
+            <thirdLevelUnit name="试验团" ID="18232"/>
+            <thirdLevelUnit name="运五中队" ID="18237"/>
+        </secondLevelUnit>
+        <secondLevelUnit name="航空大学" ID="183">
+            <thirdLevelUnit name="训练基地" ID="1832">
+                <forthLevelUnit name="装备部" ID="18321"/>
+                <forthLevelUnit name="1团" ID="18322"/>
+                <forthLevelUnit name="2团" ID="18323"/>
+                <forthLevelUnit name="3团" ID="18324"/>
+                <forthLevelUnit name="4团" ID="18325"/>
+                <forthLevelUnit name="修理厂" ID="18326"/>
+                <forthLevelUnit name="运五中队" ID="18327"/>
+            </thirdLevelUnit>
+            <thirdLevelUnit name="教官训练基地" ID="1833">
+                <forthLevelUnit name="装备部" ID="18331"/>
+                <forthLevelUnit name="第1训练团" ID="18332"/>
+                <forthLevelUnit name="第2训练团" ID="18333"/>
+                <forthLevelUnit name="第3训练团" ID="18334"/>
+                <forthLevelUnit name="第4训练团" ID="18335"/>
+                <forthLevelUnit name="修理厂" ID="18338"/>
+                <forthLevelUnit name="场站" ID="18339"/>
+            </thirdLevelUnit>
+        </secondLevelUnit>
+    </firstLevelUnit>
+    <firstLevelUnit name="已撤编" ID="19">
+        <secondLevelUnit name="1团" ID="11262"/>
+        <secondLevelUnit name="运五中队" ID="11267"/>
+        <secondLevelUnit name="1团" ID="12252"/>
+        <secondLevelUnit name="2团" ID="12253"/>
+        <secondLevelUnit name="4团" ID="12255"/>
+        <secondLevelUnit name="修理厂" ID="12257"/>
+        <secondLevelUnit name="修理厂" ID="14246"/>
+        <secondLevelUnit name="运五中队" ID="14247"/>
+        <secondLevelUnit name="1团" ID="17232"/>
+        <secondLevelUnit name="修理厂" ID="17235"/>
+        <secondLevelUnit name="运五中队" ID="17237"/>
+    </firstLevelUnit>
+</空军>

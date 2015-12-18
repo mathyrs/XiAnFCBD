@@ -41,16 +41,16 @@ public class LoginServlet extends HttpServlet {
 		}
 		*/
 		//for test and study
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cook : cookies) {
-			System.out.println(cook.getValue());
-		}
+//		Cookie[] cookies = request.getCookies();
+//		for (Cookie cook : cookies) {
+//			System.out.println(cook.getValue());
+//		}
 		
 		
 		user = usi.loginUser(userName, userPwd);
 		if (null != user) {
 			request.getSession().setAttribute("user", user);
-			request.getRequestDispatcher(response.encodeRedirectURL("/WEB-INF/pages/home.html")).forward(request, response);
+			request.getRequestDispatcher(response.encodeRedirectURL("/main.html")).forward(request, response);
 		}
 		
 	}

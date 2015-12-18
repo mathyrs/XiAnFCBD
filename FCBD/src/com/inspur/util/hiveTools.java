@@ -1,22 +1,51 @@
-/**
- * version: 0.1
- */
-
 package com.inspur.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+import org.apache.commons.dbutils.ResultSetHandler;
+
 
 public class hiveTools {
+
 	private  String driverName;
 	private  String url;
 	private  String user;
 	private  String password;
 	
+	
+	/**
+	 * @author LiuKai
+	 */
+	public hiveTools(){
+			Properties prop = new Properties();
+			InputStream in = hiveJdbcTest.class.getClassLoader().getResourceAsStream("Hivedb.properties");
+			try {
+				prop.load(in);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.driverName = prop.getProperty("driverName");
+			this.url = prop.getProperty("url");
+			this.user = prop.getProperty("user");
+			this.password = prop.getProperty("password");
+	}
+	
+	/**
+	 * @author LiuKai
+	 * @param driverName
+	 * @param url
+	 * @param user
+	 * @param password
+	 * @throws SQLException
+	 */
 	public hiveTools(String driverName,String url,String user, String password) throws SQLException{	
 		this.driverName = driverName;
 		this.url = url;
@@ -26,7 +55,7 @@ public class hiveTools {
 
 	/**
 	 * @method:getConnection
-	 * @description:»ñÈ¡Êý¾Ý¿âÁ¬½Ó¶ÔÏó
+	 * @description:ï¿½ï¿½È¡ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
 	 * @author:LiuKai 
 	 * @return:Connection
 	 * @throws ClassNotFoundException 
@@ -48,11 +77,12 @@ public class hiveTools {
 		}
 		return null;
 	}
+	
 
 
 	/**
 	 * @method useDatabase
-	 * @description Ê¹ÓÃÄ³Ò»¸öÊý¾Ý¿â
+	 * @description Ê¹ï¿½ï¿½Ä³Ò»ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 	 * @author:LiuKai 
 	 * @param conn
 	 * @param databaseName
@@ -84,9 +114,10 @@ public class hiveTools {
 
 	/**
 	 * @method funUpdate
-	 * @description Êý¾Ý¿â¸üÐÂº¯Êý
+	 * @description ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½
+	 * @author:LiuKai
 	 * @param conn
-	 * @param sql SQLÓï¾ä
+	 * @param sql SQLï¿½ï¿½ï¿½
 	 * @throws SQLException
 	 */
 	public void funUpdate(Connection conn, String sql ) throws SQLException{
@@ -100,52 +131,42 @@ public class hiveTools {
 
 	/**
 	 * @method query
-	 * @description Êý¾Ý²éÑ¯
+	 * @description ï¿½ï¿½Ý²ï¿½Ñ¯
+	 * @author:LiuKai
 	 * @param conn
 	 * @param tableName
 	 * @param condition
 	 * @throws SQLException 
 	 */
-	public  void query(Connection conn, String sql, String params[]) throws SQLException{
+	public Object query(Connection conn, String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
 		PreparedStatement pstm = null;
 		ResultSet res = null;
 		
 		System.out.println("RUNING: query");
-		long sysDateStart = System.currentTimeMillis(); //¿ªÊ¼¼ÆÊ± 		   		 
+		long sysDateStart = System.currentTimeMillis(); 
 		pstm = conn.prepareStatement(sql);
 		for(int i=0;i<params.length;i++){
-			System.out.println("i="+i);
+			//System.out.println("i="+i);
 			pstm.setString(i+1, params[i]);
 		}
-		res = pstm.executeQuery();	 
-		while (res.next()) {
-			System.out.println(res.getInt(1) + "\t" + res.getString(2));
-		}
+		res = pstm.executeQuery();
+		
+		
+		// convert res to list<string[]>		
+//		while (res.next()) {
+//			System.out.println(res.getInt(1) + "\t" + res.getString(2));
+//		}
 		long sysDateStop = System.currentTimeMillis(); 
 		long costTime = sysDateStop - sysDateStart; 
 		System.out.println("----Time for query is "+costTime + " ms.----");
+		Object result = rsh.handle(res);
 		// release
-		pstm.close();
 		res.close();
+		pstm.close();
+		conn.close();
+		
+		return result;
+		
 	}
-
-
-	/**
-	 * @method exportData
-	 * @description Êý¾Ýµ¼³ö
-	 * @author Liukai
-	 * @param conn
-	 * @param tableName
-	 * @param filepath
-	 * @throws SQLException
-	 */
-//	public  void exportData(Connection conn, String sql) throws SQLException{
-//		ResultSet res = null;
-//		
-//		System.out.println("RUNNING: export data");
-//		Statement stmt = conn.createStatement();
-//		res = stmt.executeQuery(sql);
-//		//System.out.println("running export data done");
-//		res.close();
-//	} 
+	
 }

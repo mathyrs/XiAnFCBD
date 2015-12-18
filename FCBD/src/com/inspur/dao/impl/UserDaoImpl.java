@@ -21,7 +21,7 @@ public class UserDaoImpl implements IUserDao {
 		User user = null;
 		try {
 			user = (User) DBOpera
-					.select("SELECT * FROM TUser WHERE login_name = ? AND login_password = ?;",
+					.select("SELECT * FROM Tuser WHERE login_name = ? AND login_password = ?;",
 							new BeanHandler(User.class), params);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -45,7 +45,7 @@ public class UserDaoImpl implements IUserDao {
 		params[5] = user.getGen_time().toString();
 		
 		
-		DBOpera.update("INSERT INTO TUser (org_id, login_name, login_password, user_name, email, gen_time) VALUES ( ?, ?, ?, ?, ?, ?);", params);
+		DBOpera.update("INSERT INTO Tuser (org_id, login_name, login_password, user_name, email, gen_time) VALUES ( ?, ?, ?, ?, ?, ?);", params);
 		
 	}
 
