@@ -8,12 +8,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+//import java.util.List;
 import java.util.Properties;
+
 import org.apache.commons.dbutils.ResultSetHandler;
 
 
+/**
+ * @class hiveTools
+ * @author liukai
+ *
+ */
 public class hiveTools {
-
 	private  String driverName;
 	private  String url;
 	private  String user;
@@ -21,11 +27,13 @@ public class hiveTools {
 	
 	
 	/**
+	 * @method hiveTools
+	 * @description hiveTools�๹�캯��
 	 * @author LiuKai
 	 */
 	public hiveTools(){
 			Properties prop = new Properties();
-			InputStream in = hiveJdbcTest.class.getClassLoader().getResourceAsStream("Hivedb.properties");
+			InputStream in = hiveTools.class.getClassLoader().getResourceAsStream("Hivedb.properties");
 			try {
 				prop.load(in);
 			} catch (IOException e) {
@@ -39,6 +47,8 @@ public class hiveTools {
 	}
 	
 	/**
+	 * @method hiveTools
+	 * @description hiveTools construction function
 	 * @author LiuKai
 	 * @param driverName
 	 * @param url
@@ -55,7 +65,7 @@ public class hiveTools {
 
 	/**
 	 * @method:getConnection
-	 * @description:��ȡ��ݿ����Ӷ���
+	 * @description:
 	 * @author:LiuKai 
 	 * @return:Connection
 	 * @throws ClassNotFoundException 
@@ -78,11 +88,20 @@ public class hiveTools {
 		return null;
 	}
 	
+	/**
+	 * @method releaseConn
+	 * @param conn
+	 * @throws SQLException
+	 */
+	public void releaseConn(Connection conn) throws SQLException{
+		// close the conn
+		conn.close(); 
+	}
 
 
 	/**
 	 * @method useDatabase
-	 * @description ʹ��ĳһ����ݿ�
+	 * @description 
 	 * @author:LiuKai 
 	 * @param conn
 	 * @param databaseName
@@ -96,25 +115,18 @@ public class hiveTools {
 		String sql  = "use "+databaseName;
 		stmt = conn.createStatement();
 		stmt.executeQuery(sql);
-		 
 
-		// show tables
+		// show tables		
 		res = stmt.executeQuery("show tables");
-		int i =0;
-		System.out.println("TABLE LIST OF "+ databaseName + " IS");
-		while(res.next()) {
-			System.out.println("Table "+i+" :" + res.getString(1) );
-			i++;
-		}
-		// release
-		stmt.close();
+		// release(note:release res first)
 		res.close();
+		stmt.close();	
 	}
 	
 
 	/**
 	 * @method funUpdate
-	 * @description ��ݿ���º���
+	 * @description 
 	 * @author:LiuKai
 	 * @param conn
 	 * @param sql SQL���
@@ -122,51 +134,80 @@ public class hiveTools {
 	 */
 	public void funUpdate(Connection conn, String sql ) throws SQLException{
 		Statement stmt = null;
-		stmt = conn.createStatement();	 
-		stmt.executeQuery(sql); 
+		ResultSet res = null;
+		stmt = conn.createStatement();	
+		res = stmt.executeQuery(sql);
+		while(res.next()) {
+			System.out.println(res.getString(1) );
+		}	
 		// release
 		stmt.close();
 	}
+	
+	
+	public void fun1(Connection conn, String sql ) throws SQLException{
+		Statement stmt = null;
+		stmt = conn.createStatement();	 
+		stmt.executeQuery(sql); 	
+	}
+	
+	public void HDFSuploadHive(Connection conn,String fileName,String tableName,
+			String partitionName,String tableFormat) throws SQLException{
+		//create table 
+//		System.out.println(">>RUNING: create table");
+		String sql = "create table if not exists " + tableName + " " + tableFormat + 
+				"PARTITIONED BY(day string)" +
+				"row format delimited fields terminated by ','";
+		funUpdate(conn, sql);
+		// create partition
+//		System.out.println(">>RUNING: create partition");
+		sql = "ALTER TABLE "+tableName+" ADD IF NOT EXISTS partition (day =\""
+		         +partitionName+"\")";
+		funUpdate(conn, sql);
+		// upload hdfs file to hive
+		//String HDFSfilefolder = "hdfs://Master:9000/user/hadoop/tmp/";
+		String HDFSfilePath = fileName;
+		sql = "load data inpath '" + HDFSfilePath +"' into table "+ tableName + " " + 
+				"partition (day =\'"+partitionName+"\')"; 
+//		System.out.println(sql);
+		funUpdate(conn, sql);
+		
+	}
+	
+	
 
-
-	/**
-	 * @method query
-	 * @description ��ݲ�ѯ
-	 * @author:LiuKai
-	 * @param conn
-	 * @param tableName
-	 * @param condition
-	 * @throws SQLException 
-	 */
+    /**
+     * @method query
+     * @description ��ݲ�ѯ
+     * @author LiuKai
+     * @param conn
+     * @param sql
+     * @param params
+     * @param rsh ResultSetHandler��
+     * @return Object
+     * @throws SQLException
+     */
 	public Object query(Connection conn, String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
 		PreparedStatement pstm = null;
 		ResultSet res = null;
 		
-		System.out.println("RUNING: query");
-		long sysDateStart = System.currentTimeMillis(); 
+		System.out.println(">>RUNING: query");
+		long sysDateStart = System.currentTimeMillis(); //��ʼ��ʱ 		   		 
 		pstm = conn.prepareStatement(sql);
+		
 		for(int i=0;i<params.length;i++){
-			//System.out.println("i="+i);
 			pstm.setString(i+1, params[i]);
 		}
 		res = pstm.executeQuery();
-		
-		
-		// convert res to list<string[]>		
-//		while (res.next()) {
-//			System.out.println(res.getInt(1) + "\t" + res.getString(2));
-//		}
-		long sysDateStop = System.currentTimeMillis(); 
-		long costTime = sysDateStop - sysDateStart; 
-		System.out.println("----Time for query is "+costTime + " ms.----");
 		Object result = rsh.handle(res);
-		// release
+		// release(note:release res first)
 		res.close();
 		pstm.close();
-		conn.close();
 		
-		return result;
+		long sysDateStop = System.currentTimeMillis(); 
+		long costTime = sysDateStop - sysDateStart; 
+		System.out.println("----Time for query is "+costTime + " ms.----");	
 		
-	}
-	
+		return result;	
+	}	
 }

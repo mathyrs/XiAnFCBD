@@ -173,8 +173,8 @@ return true;
 <body> 
 <div id="container">
 <div id="header">
-<p><nobr><h1 style="position:absolute;top:0px;left:500px;"><img class="normal" src="/FCBD/resources/img/u10.png" style="position:absolute;top:-25px;left:-150px;height:70px;"/>
-军用飞参大数据管控平台</h1>
+<p><nobr><h1 style="position:absolute;top:0px;left:430px;"><img class="normal" src="/FCBD/resources/img/u10.png" style="position:absolute;top:-25px;left:-150px;height:70px;"/>
+飞参大数据整合平台软件系统</h1>
 <b><a class="one" style="position:absolute;top:50px;left:1100px;" href="C:\Users\hptw\Desktop\注册.html" target="_self">设为首页</a></b><nobr></p>
 </p>
 </div>
@@ -188,8 +188,8 @@ return true;
 <form id="form1" action="LoginServlet" method="post">
 <p><table cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td align="left"> 
 <!--select标签和input外面的span标签的格式是为了使两个位置在同一位置，控制位置--> 
-<span style="position:absolute;left:122px;top:15px;border:1pt;overflow:hidden;width:188px;height:30px;clip:rect(-1px 190px 190px 170px);"> 
-<select name="aabb" id="aabb" style="position:relative;left:1px;width:190px;height:30px;margin:-3px;" 
+<span style="position:absolute;left:72px;top:14px;border:1pt;overflow:hidden;width:188px;height:23px;clip:rect(-1px 190px 190px 170px);"> 
+<select name="aabb" id="aabb" style="position:relative;left:1px;width:190px;height:25px;margin:-3px;" 
 onChange="javascript:document.getElementById('ccdd').value=document.getElementById('aabb').options[document.getElementById('aabb').selectedIndex].value;"> 
 <!--下面的option的样式是为了使字体为灰色，只是视觉问题，看起来像是注释一样--> 
 <option value="" style="color:#c2c2c2;">---请选择---</option> 
@@ -198,8 +198,8 @@ onChange="javascript:document.getElementById('ccdd').value=document.getElementBy
 </select> 
 </span> 
 <b>登陆模式:</b>
-<span style="position:absolute;top:11pt ;left:52pt ;border-bottom:1pt ;width:190px;height:19px;"> 
-<input type="text" name="ccdd" id="ccdd" value="普通用户登录" style="width:222px;height:25px;border:0pt;font-size:20px;background-color:#cccccc; "> 
+<span style="position:absolute;top:11pt ;left:53pt ;border-bottom:1pt ;width:170px;height:19px;"> 
+<input type="text" name="ccdd" id="ccdd" value="普通用户登录" style="width:170px;height:20px;border:0pt;font-size:20px;background-color:#cccccc; "> 
 </span> 
 </td></tr></table></p>
 <p><b>登陆账户:</b><input type="text" id="user" style="width:300px;height=700px;font-size:20px;" name="user" onblur="GetPwdAndChk()"/></p>
@@ -218,7 +218,7 @@ onChange="javascript:document.getElementById('ccdd').value=document.getElementBy
 </div>
 </div>
 <div id="footer">
-<p style="position:relative;left:150px;"><b>欢迎访问军用飞参大数据管控平台！</b>
+<p style="position:relative;left:150px;"><b>欢迎访问飞参大数据整合平台系统！</b>
 </p>
 </div>
 </div>

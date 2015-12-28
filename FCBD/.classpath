@@ -49,5 +49,8 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/stringtemplate-3.1-b1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/zookeeper-3.4.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hive_jdbc/commons-configuration-1.6.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

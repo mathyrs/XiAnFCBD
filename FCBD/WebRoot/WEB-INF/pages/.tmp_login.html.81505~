@@ -218,7 +218,7 @@ onChange="javascript:document.getElementById('ccdd').value=document.getElementBy
 </div>
 </div>
 <div id="footer">
-<p style="position:relative;left:150px;"><b>欢迎访问军用飞参大数据管控平台！</b>
+<p style="position:relative;left:150px;"><b>欢迎访问飞参大数据整合平台系统！</b>
 </p>
 </div>
 </div>
