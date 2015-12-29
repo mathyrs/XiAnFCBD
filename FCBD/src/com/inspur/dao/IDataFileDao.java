@@ -16,7 +16,7 @@ public interface IDataFileDao {
 	
 	String getDataFileID(String fileName) throws SQLException;
 	
-	List<Object[]> getFileContentByHive(String Hivesql, Object[] params, ResultSetHandler<?> rsh) throws SQLException;
+	List<Object[]> getFileContentByHive(String Hivesql, String[] params, ResultSetHandler<?> rsh) throws SQLException;
 	
 	List<String> getFileContentByHDFS(String fileID) throws SQLException, IOException;
 	

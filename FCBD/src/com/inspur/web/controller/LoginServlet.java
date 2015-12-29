@@ -42,9 +42,14 @@ public class LoginServlet extends HttpServlet {
 		*/
 		//for test and study
 		Cookie[] cookies = request.getCookies();
-		for (Cookie cook : cookies) {
-			System.out.println(cook.getName() + ": " + cook.getValue());
+		if (null == cookies) {
+			System.out.println("Can not find cookies!!!");
+		} else {
+			for (Cookie cook : cookies) {
+				System.out.println(cook.getName() + ": " + cook.getValue());
+			}
 		}
+		
 		
 		
 		user = usi.loginUser(userName, userPwd);

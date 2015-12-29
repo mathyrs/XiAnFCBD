@@ -19,6 +19,8 @@ public interface IDataFileService {
 	public void addDataFile(User user, String fileName, String sourcePath, String orgName,
 			String fileTime, String permission, String sortie) throws SQLException, IOException, URISyntaxException;
 	
+	public List<Object[]> getHiveQueryResult(String orgID, String startTime, String endTime, String planeType, String sortie, String deviceName, String planeID) throws SQLException;
+	
 	public List<Object[]> getHiveQueryResult(String hiveQL) throws SQLException;
 
 

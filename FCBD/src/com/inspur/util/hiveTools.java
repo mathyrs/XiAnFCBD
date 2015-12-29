@@ -8,16 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.util.List;
 import java.util.Properties;
-
 import org.apache.commons.dbutils.ResultSetHandler;
-
 
 /**
  * @class hiveTools
- * @author liukai
- *
+ * @author LiuKai
  */
 public class hiveTools {
 	private  String driverName;
@@ -25,10 +21,10 @@ public class hiveTools {
 	private  String user;
 	private  String password;
 	
-	
+
 	/**
-	 * @method hiveTools
-	 * @description hiveTools�๹�캯��
+	 * @Title hiveTools
+	 * @Decription hiveTools class construction function
 	 * @author LiuKai
 	 */
 	public hiveTools(){
@@ -89,48 +85,51 @@ public class hiveTools {
 	}
 	
 	/**
-	 * @method releaseConn
-	 * @param conn
-	 * @throws SQLException
+	 * 
+	* @Title: releaseConn 
+	* @Description: release the conn 
+	* @param @param conn
+	* @param @throws SQLException  
+	* @return void 
+	* @throws
 	 */
 	public void releaseConn(Connection conn) throws SQLException{
-		// close the conn
+		// close the connect
 		conn.close(); 
 	}
 
 
 	/**
-	 * @method useDatabase
-	 * @description 
-	 * @author:LiuKai 
-	 * @param conn
-	 * @param databaseName
-	 * @throws SQLException
+	 * 
+	* @Title: useDatabase 
+	* @Description: choose hive database 
+	* @param @param conn
+	* @param @param databaseName
+	* @param @throws SQLException  
+	* @return void 
+	* @throws
 	 */
 	public  void useDatabase(Connection conn,String databaseName) throws SQLException{
 		Statement stmt = null;
-		ResultSet res = null;
 		
-		System.out.println("USE TABLE: "+databaseName);
 		String sql  = "use "+databaseName;
 		stmt = conn.createStatement();
 		stmt.executeQuery(sql);
-
-		// show tables		
-		res = stmt.executeQuery("show tables");
-		// release(note:release res first)
-		res.close();
+		
+		// release
 		stmt.close();	
 	}
 	
 
 	/**
-	 * @method funUpdate
-	 * @description 
-	 * @author:LiuKai
-	 * @param conn
-	 * @param sql SQL���
-	 * @throws SQLException
+	 * 
+	* @Title: funUpdate 
+	* @Description: common function for non-answer hive operation 
+	* @param @param conn
+	* @param @param sql
+	* @param @throws SQLException  
+	* @return void 
+	* @throws
 	 */
 	public void funUpdate(Connection conn, String sql ) throws SQLException{
 		Statement stmt = null;
@@ -144,49 +143,51 @@ public class hiveTools {
 		stmt.close();
 	}
 	
-	
-	public void fun1(Connection conn, String sql ) throws SQLException{
-		Statement stmt = null;
-		stmt = conn.createStatement();	 
-		stmt.executeQuery(sql); 	
-	}
-	
-	public void HDFSuploadHive(Connection conn,String fileName,String tableName,
-			String partitionName,String tableFormat) throws SQLException{
-		//create table 
-//		System.out.println(">>RUNING: create table");
-		String sql = "create table if not exists " + tableName + " " + tableFormat + 
+	/**
+	* @Title: HDFSuploadHive 
+	* @Description: upload file from HDFS to Hive 
+	* @param @param conn
+	* @param @param HDFSfilePath
+	* @param @param tableName
+	* @param @param partitionName
+	* @param @param tableFormat
+	* @param @throws SQLException  
+	* @return void 
+	* @throws
+	 */
+	public void HDFSuploadHive(Connection conn,String HDFSfilePath,String tableName,
+			String partitionName,String tableFormat) throws SQLException{	
+		String HiveSQL = null;
+		//create table if necessary
+		HiveSQL = "create table if not exists " + tableName + " " + tableFormat + 
 				"PARTITIONED BY(day string)" +
 				"row format delimited fields terminated by ','";
-		funUpdate(conn, sql);
-		// create partition
-//		System.out.println(">>RUNING: create partition");
-		sql = "ALTER TABLE "+tableName+" ADD IF NOT EXISTS partition (day =\""
-		         +partitionName+"\")";
-		funUpdate(conn, sql);
-		// upload hdfs file to hive
-		//String HDFSfilefolder = "hdfs://Master:9000/user/hadoop/tmp/";
-		String HDFSfilePath = fileName;
-		sql = "load data inpath '" + HDFSfilePath +"' into table "+ tableName + " " + 
-				"partition (day =\'"+partitionName+"\')"; 
-//		System.out.println(sql);
-		funUpdate(conn, sql);
-		
+		funUpdate(conn, HiveSQL);
+
+		// create partition if necessary
+		HiveSQL = "ALTER TABLE "+tableName+" ADD IF NOT EXISTS partition (day =\""+partitionName+"\")";
+		funUpdate(conn, HiveSQL);
+
+		// load date from HDFS to Hive
+		HiveSQL = "load data inpath '" + HDFSfilePath +"' into table "+ tableName 
+				+ " " + "partition (day =\'"+partitionName+"\')"; 
+		funUpdate(conn, HiveSQL);	
 	}
 	
-	
 
-    /**
-     * @method query
-     * @description ��ݲ�ѯ
-     * @author LiuKai
-     * @param conn
-     * @param sql
-     * @param params
-     * @param rsh ResultSetHandler��
-     * @return Object
-     * @throws SQLException
-     */
+	/**
+	 * 
+	 * @Title: query 
+	 * @Description: make hive query 
+	 * @param @param conn
+	 * @param @param sql
+	 * @param @param params
+	 * @param @param rsh
+	 * @param @return
+	 * @param @throws SQLException  
+	 * @return Object 
+	 * @throws
+	 */
 	public Object query(Connection conn, String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
 		PreparedStatement pstm = null;
 		ResultSet res = null;
@@ -200,6 +201,7 @@ public class hiveTools {
 		}
 		res = pstm.executeQuery();
 		Object result = rsh.handle(res);
+		
 		// release(note:release res first)
 		res.close();
 		pstm.close();

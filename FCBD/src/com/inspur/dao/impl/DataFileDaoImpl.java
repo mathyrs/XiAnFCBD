@@ -64,7 +64,7 @@ public class DataFileDaoImpl implements IDataFileDao{
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> getFileContentByHive(String hiveSql, Object[] params,
+	public List<Object[]> getFileContentByHive(String hiveSql, String[] params,
 			ResultSetHandler<?> rsh) throws SQLException {
 		// TODO Auto-generated method stub
 		hiveTools mhivetool = new hiveTools();

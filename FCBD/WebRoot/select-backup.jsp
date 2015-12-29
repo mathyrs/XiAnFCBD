@@ -6,17 +6,17 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <style type="text/css">
-*{margin:0px;padding:0px;}
-div#select_head{position:absolute;left:10px;width:760px;top:5px;height:200px;color:white;margin:2px;border:3px solid gray;background-color:#F0F8FF;z-index:2;}
-div#select_left1{position:relative;height:20px;width:50px;top:76px;left:690px;margin:0px;border:0px solid gray;text-align:center;z-index:1;}
+div#select_head{position:absolute;left:18px;width:760px;top:0px;height:200px;color:white;margin:2px;border:3px solid gray;background-color:#F0F8FF;z-index:2;}
+div#select_left1{position:relative;height:30px;width:60px;top:80px;left:690px;margin:0px;border:0px solid gray;text-align:center;z-index:1;}
 div#select_left2{position:relative;height:30px;width:62px;top:-120px;left:10px;margin:0px;border:0px solid gray;text-align:center;z-index:1;}
-div#select_left3{position:relative;height:26px;width:190px;top:-158px;left:565px;margin:0px;border:0px solid gray;color:black;text-align:center;z-index:1;}
+div#select_left3{position:relative;height:26px;width:190px;top:-280px;left:565px;margin:0px;border:0px solid gray;color:black;text-align:center;z-index:1;}
 div#time{position:absolute;height:30px;width:210px;top:35px;left:100px;margin:0px;border:0px solid gray;z-index:3;}
-div#select_contest{position:absolute;top:218px;left:10px;width:762;height:426px;margin:0px;border:4px solid gray;color:white;background-color:white;z-index:1;}
+div#select_contest{position:absolute;top:216px;left:16px;width:764;height:426px;margin:0px;border:4px solid gray;color:white;background-color:white;z-index:1;}
 span{color:red}
 .file{ position:relative; height:26px; filter:alpha(opacity:30);opacity: 50;width:60px; }
 </style>
 
+<script type="text/javascript" src="/FCBD/resources/js/AjaxClass.js"></script>
 
 <script type="text/javascript">
 function HS_DateAdd(interval,number,date){
@@ -160,8 +160,8 @@ function HS_setDate1(inputObj){
 	var calenderObj = document.createElement("span");
 	calenderObj.innerHTML = HS_calender(new Date());
 	calenderObj.style.position = "absolute";
-	calenderObj.style.left="-38px";
-	calenderObj.style.top="84px";
+	calenderObj.style.left="54px";
+	calenderObj.style.top="28px";
 	calenderObj.targetObj = inputObj;
 	inputObj.parentNode.insertBefore(calenderObj,inputObj.nextSibling);
 }
@@ -169,8 +169,8 @@ function HS_setDate2(inputObj){
 	var calenderObj = document.createElement("span");
 	calenderObj.innerHTML = HS_calender(new Date());
 	calenderObj.style.position = "absolute";
-	calenderObj.style.left="92px";
-	calenderObj.style.top="84px";
+	calenderObj.style.left="195px";
+	calenderObj.style.top="28px";
 	calenderObj.targetObj = inputObj;
 	inputObj.parentNode.insertBefore(calenderObj,inputObj.nextSibling);
 }
@@ -258,7 +258,6 @@ function HS_setDate2(inputObj){
          XmlHttp.onreadystatechange =onComplete;  
          //将名值对发送到服务器  
          XmlHttp.send(postedData);  
-		 document.getElementById("select_contest").innerHTML="<p style='color:black;'>loading...</p>";
        }  
        catch(e)  
        {  
@@ -269,8 +268,10 @@ function HS_setDate2(inputObj){
      {  
         if (XmlHttp.readyState==4&&XmlHttp.status==200) {  
             //显示结果  
-            document.getElementById("select_contest").innerHTML=XmlHttp.responseText;  
-        } 
+            document.getElementById("select_contest").innerText=xmlHttp.responseText;  
+        } else {
+			document.getElementById("select_contest").innerText="Loading...";  
+		}  
      }  
   
   
@@ -279,38 +280,34 @@ function HS_setDate2(inputObj){
 <body>
 <div id = "select_head" >
 <form style="position:relative;width:230px;"id="form1" action="">
-
-<input name="查询" type="button"  value="查询" onclick="selectnew()" style="position:relative;top:80px;left:690px;width:60px;height:35px;background:#003333;color:white;z-index:1;"/>
-
+<div id = "select_left1">
+<input name="查询" type="button"  value="查询" onclick="selectnew()" style="position:relative;top:-10px;width:60px;height:35px;background:#003333;color:white;"/>
+</div>
 
 <input type="hidden" name="requestType" value="query"> 
-<p style="position:relative;color:black;left:10px;top:-6px;">单    位<span> *</span>:<input type="text" id="danwei" name="orgID"  onblur="check_name1(this.value);" style="width:120px;font-size:18px;" name="user" /></p>
-<p style="position:relative;color:black;left:204px;top:-30px;">机    型:<select name="planeType" style="width:120px;font-size:18px;">
+<p style="position:relative;color:black;left:10px;top:-30px;">单    位<span> *</span>:<input type="text" id="danwei" name="orgID"  onblur="check_name1(this.value);" style="width:120px;font-size:18px;" name="user" /></p>
+<p style="position:relative;color:black;left:204px;top:-74px;">机    型:<select name="planeType" style="width:120px;font-size:18px;">
 <option value="" style="color:#c2c2c2;">---请选择---</option> 
 <option value="歼10-A">歼10-A</option>  
 <option value="歼10-B">歼10-B</option>
 <option value="歼10-D">歼10-D</option>
 </select></p>
-<p style="position:relative;color:black;left:392px;top:-55px;">架    次:<input type="text" id="sortie" name="sortie" style="width:120px;font-size:18px;" name="user" /></p>
+<p style="position:relative;color:black;left:392px;top:-119px;">架    次:<input type="text" id="sortie" name="sortie" style="width:120px;font-size:18px;" name="user" /></p>
 <div id="time">
-<p style="position:absolute;color:black;left:-92px;top:60px;">时    间 <span>*</span>:</p>
-<input type="text" id="startTime" name="startTime" style="position:absolute;top:60px;left:-38px;width:100px;font-size:18px;" name="user"  onfocus="HS_setDate1(this)"/>
-<p style="position:absolute;top:60px;left:62px;color:black;">——</p>
-<input type="text" id="endTime" name="endTime" style="position:absolute;top:60px;left:92px;width:100px;font-size:18px;" name="user"  onfocus="HS_setDate2(this)"/>
+<p style="position:relative;color:black;left:-90px;top:30px;">时    间 <span>*</span>:<input type="text" id="startTime" name="startTime" style="width:100px;font-size:18px;" name="user"  onfocus="HS_setDate1(this)"/> —— <input type="text" id="endTime" name="endTime" style="position:relative;top:-28px;left:195px;width:100px;font-size:18px;" name="user"  onfocus="HS_setDate2(this)"/></p>
 </div>
-<p style="position:relative;color:black;left:324px;top:-15px;">编    号:<input type="text" id="user" name="planeID" style="width:120px;font-size:18px;" name="user" /></p>
-<p style="position:relative;color:black;left:500px;top:-39px;">设    备:<input type="text" id="user" name="deviceName" style="width:120px;font-size:18px;" name="user" /></p>
+<p style="position:relative;color:black;left:324px;top:-99px;">编    号:<input type="text" id="user" name="planeID" style="width:120px;font-size:18px;" name="user" /></p>
+<p style="position:relative;color:black;left:500px;top:-145px;">设    备:<input type="text" id="user" name="deviceName" style="width:120px;font-size:18px;" name="user" /></p>
 </form>
 <div id = "select_left2">
-<p><form id="form2" action="FCBD/servlet/DataQueryServlet"><input type="hidden" name="requestType" value="hive"><input type="text" id="user" name="HiveQL" style="position:relative;top:120px;left:20px; width:630px;font-size:22px;" name="user" /></form><input name="userName" type="button" value="HiveQL" style="position:relative;top:86px;left:680px;width:60px;height:35px;background:#003333;color:white;"/>
+<p><form id="form2" action="FCBD/servlet/DataQueryServlet"><input type="hidden" name="requestType" value="hive"><input type="text" id="user" name="HiveQL" style="position:relative;top:0px;left:20px; width:630px;font-size:22px;" name="user" /></form><input name="userName" type="button" value="HiveQL" style="position:relative;top:-52px;left:680px;width:60px;height:35px;background:#003333;color:white;"/>
 </p>
 </div>
 <div id = "select_left3">
-<p>（多个对象以逗号隔开）</p>
+（多个对象以逗号隔开）
 </div>
 </div>
 <div id = "select_contest">
-	
 </div>
 </body>
 </html>
