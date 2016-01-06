@@ -106,7 +106,8 @@ function jsddm_canceltimer()
 
 $(document).ready(function()
 {	$('#jsddm > li').bind('mouseover', jsddm_open);
-	$('#jsddm > li').bind('mouseout',  jsddm_timer);});
+	$('#jsddm > li').bind('mouseout',  jsddm_timer);
+	$('#jsddm > li').bind('onclick', jsddm_close);});
 
 
   </script>
@@ -191,17 +192,28 @@ function setTable(str) {
 <!--弹出窗口 -->
 <script type = 'text/javascript'>
 function tanchu(){
-	jsddm_close();
- window.showModalDialog("/FCBD/importDialog.jsp","","dialogWidth=596px;dialogHeight=448px;dialogTop=200px;dialogLeft=400px;");
-	
-	}
+ jsddm_close();
+ window.showModalDialog(projectName + "/importDialog.jsp","","dialogWidth=596px;dialogHeight=448px;dialogTop=200px;dialogLeft=400px;");
+}
+function select(){
+ jsddm_close();
+ window.showModalDialog(projectName + "/select.jsp","","dialogWidth=800px;dialogHeight=700px;dialogTop=200px;dialogLeft=400px;");
+}
 function tuichu(){
-window.location.href=localhostPath + "/FCBD/servlet/LoginUIServlet";
+window.location.href=localhostPath + projectName + "/servlet/LoginUIServlet";
 }
 </script>
 
 </head>
 <body>  
+
+<% 
+	//User user = (User)(session.getAttribute("user"));
+	//if (null == user) {
+		//session.invalidate();
+		//request.getRequestDispatcher(response.encodeRedirectURL("/servlet/LoginUIServlet")).forward(request, response);
+	//}
+%>
 
 <div id="container" onclick="show()" onmouseover="show()">
 <div id="header">
@@ -213,8 +225,8 @@ window.location.href=localhostPath + "/FCBD/servlet/LoginUIServlet";
 <ul id="jsddm">
 	<li ><a href="#">文件</a>
 		<ul>
-			<li id="daoru" onclick="tanchu()"><a>数据导入</a></li>
-		 	<li><a href="#">数据查询</a></li> 
+			<li id="daoru" onclick="tanchu()" ><a>数据导入</a></li>
+		 	<li id="chaxun" onclick="select()"><a>数据查询</a></li> 
 			<li><a href="#">数据删除</a></li>
 			<li onclick="tuichu()"><a>退出</a></li>
 		</ul>

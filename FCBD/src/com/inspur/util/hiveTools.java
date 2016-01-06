@@ -8,8 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.ArrayListHandler;
 
 /**
  * @class hiveTools
@@ -193,7 +195,7 @@ public class hiveTools {
 		ResultSet res = null;
 		
 		System.out.println(">>RUNING: query");
-		long sysDateStart = System.currentTimeMillis(); //��ʼ��ʱ 		   		 
+		long sysDateStart = System.currentTimeMillis(); 		   		 
 		pstm = conn.prepareStatement(sql);
 		
 		for(int i=0;i<params.length;i++){
@@ -211,5 +213,53 @@ public class hiveTools {
 		System.out.println("----Time for query is "+costTime + " ms.----");	
 		
 		return result;	
-	}	
+	}
+	
+	/**
+	 * 
+	* @Title: query2 
+	* @Description: TODO 
+	* @param @param conn
+	* @param @param tmpTableName
+	* @param @param tableFormat
+	* @param @param sql
+	* @param @param params
+	* @param @param rsh
+	* @param @return
+	* @param @throws SQLException  
+	* @return Object 
+	* @throws
+	 */
+	public Object query2(Connection conn,String tmpTableName,String tableFormat,
+			   String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
+		
+		// step 1:check if temp table 'tmp' exist
+		String creatSql = "create table if not exists " + tmpTableName + " " + tableFormat + 
+				"row format delimited fields terminated by ','";
+		funUpdate(conn, creatSql);
+		
+	    // step 2:make query and save the result into table tmp;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		pstm = conn.prepareStatement(sql);
+		
+		for(int i=0;i<params.length;i++){
+			pstm.setString(i+1, params[i]);
+		}
+		res = pstm.executeQuery();
+		rsh.handle(res);
+		
+		// release(note:release res first)
+		res.close();
+		pstm.close();
+		
+		
+		// step 3:get tmp table 
+		String Hivesql = "SELECT * FROM "+ tmpTableName;
+		String params2[] = {};
+		@SuppressWarnings("unchecked")
+		List<String[]> result = (List<String[]>) query(conn, Hivesql, params2, new ArrayListHandler());
+		
+		return result;		
+	}
 }

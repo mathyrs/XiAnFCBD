@@ -12,7 +12,7 @@ div#select_left1{position:relative;height:20px;width:50px;top:76px;left:690px;ma
 div#select_left2{position:relative;height:30px;width:62px;top:-120px;left:10px;margin:0px;border:0px solid gray;text-align:center;z-index:1;}
 div#select_left3{position:relative;height:26px;width:190px;top:-158px;left:565px;margin:0px;border:0px solid gray;color:black;text-align:center;z-index:1;}
 div#time{position:absolute;height:30px;width:210px;top:35px;left:100px;margin:0px;border:0px solid gray;z-index:3;}
-div#select_contest{position:absolute;top:218px;left:10px;width:762;height:426px;margin:0px;border:4px solid gray;color:white;background-color:white;z-index:1;}
+div#select_contest{position:absolute;top:218px;left:10px;width:762;height:426px;margin:0px;border:4px solid gray;color:white;background-color:white;z-index:1;overflow-y:auto;}
 span{color:red}
 .file{ position:relative; height:26px; filter:alpha(opacity:30);opacity: 50;width:60px; }
 </style>
@@ -194,14 +194,15 @@ function HS_setDate2(inputObj){
   alert("结束时间不得为空！");				
   }			
   }
-  function selectnew(){
+  function selectnew(oform){
   var str1 = document.getElementById("danwei").value;
   var str2 = document.getElementById("startTime").value;
   var str3 = document.getElementById("endTime").value;
   check_name1(str1);
   check_name2(str2);
   check_name3(str3);
-  query();
+  hiveQLGenerate(oform);
+  query(oform);
   }
   
   function getXmlhttp() {
@@ -244,14 +245,15 @@ function HS_setDate2(inputObj){
         }  
         return aParams.join("&");  
      }  
-  function query()  
+  function query(oform)  
      {  
       try  
       {  
          getXmlhttp(); 
          var url="servlet/DataQueryServlet";  
-         var postedData=getRequestBody(document.forms["form1"]);  
-          
+        // var postedData=getRequestBody(document.forms["form1"]);  
+         var postedData=getRequestBody(oform);
+		 
          XmlHttp.open("post",url,true);  
          XmlHttp.setRequestHeader("content-length",postedData.length);//post提交设置项  
          XmlHttp.setRequestHeader("content-type","application/x-www-form-urlencoded");//post提交设置项  
@@ -271,16 +273,132 @@ function HS_setDate2(inputObj){
             //显示结果  
             document.getElementById("select_contest").innerHTML=XmlHttp.responseText;  
         } 
-     }  
+     } 
+	 
+	 function hiveQLGenerate(oform)  
+     {  
+      try  
+      {  
+         getXmlhttp(); 
+         var url="servlet/DataQueryServlet?method=HiveQL";  
+        // var postedData=getRequestBody(document.forms["form1"]);  
+         var postedData=getRequestBody(oform);
+		 
+         XmlHttp.open("post",url,false);  
+         XmlHttp.setRequestHeader("content-length",postedData.length);//post提交设置项  
+         XmlHttp.setRequestHeader("content-type","application/x-www-form-urlencoded");//post提交设置项  
+         XmlHttp.onreadystatechange = function(){
+		 	if (XmlHttp.readyState==4&&XmlHttp.status==200) {  
+            //显示结果  
+            document.getElementById("HiveQL").value=XmlHttp.responseText;  
+        	} 
+		 };  
+         //将名值对发送到服务器  
+         XmlHttp.send(postedData);  
+		 
+       }  
+       catch(e)  
+       {  
+         alert(e.message);  
+       }   
+     } 
+	 
+	 function paintImage()  
+     {  
+      try  
+      {  
+         getXmlhttp(); 
+         var url="servlet/DataQueryServlet?method=paint";
+		 
+         XmlHttp.open("get",url,false);  
+		 
+         XmlHttp.onreadystatechange = function(){
+		 	if (XmlHttp.readyState==4&&XmlHttp.status==200) {  
+            //显示结果  
+                imageFileName = XmlHttp.responseText;  
+				OpenFullSizeWindow( projectName + '/resources/tmpImages/' + imageFileName + '.pdf','','');
+        	} 
+		 };
+         //将名值对发送到服务器  
+         XmlHttp.send(null);
+		 
+       }  
+       catch(e)  
+       {  
+         alert(e.message);  
+       }   
+     } 
+	 
+	  
+	var curWwwPath = window.document.location.href;
+//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+	var pathName = window.document.location.pathname;
+	var pos = curWwwPath.indexOf(pathName);
+//获取主机地址，如： http://localhost:8083
+	var localhostPath = curWwwPath.substring(0, pos);
+//获取带"/"的项目名，如：/uimcardprj
+     var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+  //function picture(){
   
-  
-  </script>
+ //window.showModalDialog(projectName + "/picture.jsp","","dialogWidth=600px;dialogHeight=500px;dialogTop=200px;dialogLeft=400px;");
+//}
+
+var embObj;
+function checkImg(theURL,winName){
+  // 对象是否已创建
+  if (typeof(embObj) == "object"){
+    // 是否已取得了图像的高度和宽度
+    if ((embObj.width != 0) && (embObj.height != 0))
+      // 根据取得的图像高度和宽度设置弹出窗口的高度与宽度，并打开该窗口
+      // 其中的增量 20 和 30 是设置的窗口边框与图片间的间隔量
+      OpenFullSizeWindow(theURL,winName, ",width=" + (embObj.width+20) + ",height=" + (embObj.height+30));
+    else
+      // 因为通过 Image 对象动态装载图片，不可能立即得到图片的宽度和高度，所以每隔100毫秒重复调用检查
+      setTimeout("checkImg('" + theURL + "','" + winName + "')", 100);
+  }
+}
+
+
+function OpenFullSizeWindow(theURL,winName,features) {
+  var aNewWin, sBaseCmd;
+  //theURL = '/FCBD/resources/img/10.pdf';
+  // 弹出窗口外观参数
+  sBaseCmd = "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,";
+  // 调用是否来自 checkImg 
+  //if (features == null || features == ""){
+    // 创建图像对象
+   // embObj = new Embed();
+    // 设置图像源
+   // embObj.src = theURL;
+    // 开始获取图像大小
+   // checkImg(theURL, winName)
+  //}
+  //else{
+    // 打开窗口
+    //aNewWin = window.open(theURL,winName, sBaseCmd + features);
+	aNewWin = window.open(theURL,'new','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+    // 聚焦窗口
+    aNewWin.focus();
+  //}
+}
+
+</script>
+
 </head>
 <body>
+	<% 
+	  String imageFileName = (String)(session.getAttribute("imageFileName"));
+	  String filePath = request.getContextPath() + "/resources/img/";
+	//if (null == user) {
+		//session.invalidate();
+		//request.getRequestDispatcher(response.encodeRedirectURL("/servlet/LoginUIServlet")).forward(request, response);
+	//}
+   %>
+	
 <div id = "select_head" >
 <form style="position:relative;width:230px;"id="form1" action="">
 
-<input name="查询" type="button"  value="查询" onclick="selectnew()" style="position:relative;top:80px;left:690px;width:60px;height:35px;background:#003333;color:white;z-index:1;"/>
+<input name="查询" type="button"  value="查询" onclick="selectnew(this.parentNode)" style="position:relative;top:80px;left:690px;width:60px;height:35px;background:#003333;color:white;z-index:1;"/>
 
 
 <input type="hidden" name="requestType" value="query"> 
@@ -302,7 +420,11 @@ function HS_setDate2(inputObj){
 <p style="position:relative;color:black;left:500px;top:-39px;">设    备:<input type="text" id="user" name="deviceName" style="width:120px;font-size:18px;" name="user" /></p>
 </form>
 <div id = "select_left2">
-<p><form id="form2" action="FCBD/servlet/DataQueryServlet"><input type="hidden" name="requestType" value="hive"><input type="text" id="user" name="HiveQL" style="position:relative;top:120px;left:20px; width:630px;font-size:22px;" name="user" /></form><input name="userName" type="button" value="HiveQL" style="position:relative;top:86px;left:680px;width:60px;height:35px;background:#003333;color:white;"/>
+<p><form id="form2" action=""><input type="hidden" name="requestType" value="hive">
+<input type="text" id="HiveQL" name="HiveQL" style="position:relative;top:120px;left:20px; width:550px;height:30px;font-size:16px;h" name="user" />
+<input name="userName" type="button" value="HiveQL" onclick="selectnew(this.parentNode)" style="position:relative;top:86px;left:600px;width:60px;height:35px;background:#003333;color:white;"/>
+</form>
+<input name="userName1" type="button" value="画图" onclick="paintImage();return false" style="position:relative;top:50px;left:680px;width:60px;height:35px;background:#003333;color:white;"/>
 </p>
 </div>
 <div id = "select_left3">
@@ -310,7 +432,7 @@ function HS_setDate2(inputObj){
 </div>
 </div>
 <div id = "select_contest">
-	
+	<!-- <embed width="800" height="600" src="/FCBD/resources/img/10.pdf" /> -->
 </div>
 </body>
 </html>

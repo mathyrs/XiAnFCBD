@@ -356,10 +356,10 @@ window.location.href=localhostPath + projectName + "/servlet/LoginUIServlet";
 <div id="content">
 <table border="1" id="tablea" style="position:relative;background-color:white;">
 <tr>
-<td width=140px>名称</td>
-<td width=140px>修改时间</td>
-<td width=140px>类型</td>
-<td width=140px>大小</td>
+<td width=255px>名称</td>
+<td width=118px>修改时间</td>
+<td width=118px>类型</td>
+<td width=117px>大小</td>
 </tr>
 
 </table>

@@ -6,14 +6,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.Rserve.RserveException;
 
 import com.inspur.dao.IDataFileDao;
 import com.inspur.domain.DataFile;
 import com.inspur.domain.User;
 import com.inspur.util.DBOpera;
 import com.inspur.util.HDFSTools;
+import com.inspur.util.RHiveTools;
 import com.inspur.util.hiveTools;
 
 /**
@@ -64,11 +68,39 @@ public class DataFileDaoImpl implements IDataFileDao{
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> getFileContentByHive(String hiveSql, String[] params,
+	public List<String[]> getFileContentByHive(String hiveSql, String[] params,
 			ResultSetHandler<?> rsh) throws SQLException {
 		// TODO Auto-generated method stub
 		hiveTools mhivetool = new hiveTools();
-		return (List<Object[]>) mhivetool.query(mhivetool.getConnection(), hiveSql, (String[])params, rsh);
+		
+		//与DataFileServiceImpl.java的getHiveQL方法中的tmpTableName的值应保持一致。
+		String tmpTableName = "tmp";
+		String tableFormat = 
+				" (ID int, TIME string, a int, b int, name string, value double, fliget string) ";
+		
+		
+		
+		return (List<String[]>) mhivetool.query2(mhivetool.getConnection(), tmpTableName,tableFormat,
+				hiveSql, params, new ArrayListHandler());
+//		hiveTools mhivetool = new hiveTools();
+//		return (List<Object[]>) mhivetool.query(mhivetool.getConnection(), hiveSql, (String[])params, rsh);
+	}
+	
+	/**
+	 * @brief get file content from Rhive by hiveSQL. Each data saved as String[].
+	 * @param String HDFSIP, String HiveQL, String RfileName
+	 * @return List<String[]>
+	 * @exception RserveException, REXPMismatchException
+	 * @version 0.1
+	 * @author mathyrs
+	 * @date 2016-1-4
+	 */
+	@Override
+	public List<String[]> getFileContentByRHive(String HDFSIP, String HiveQL,
+			String RfileName) throws RserveException, REXPMismatchException {
+		// TODO Auto-generated method stub
+		RHiveTools rht = new RHiveTools();
+		return rht.RhiveQuery(HDFSIP, HiveQL, RfileName);
 	}
 	
 	
@@ -109,24 +141,23 @@ public class DataFileDaoImpl implements IDataFileDao{
 	@Override
 	public List<String> getFileContentByHDFS(String fileID) throws SQLException, IOException {
 		// TODO Auto-generated method stub
-    	HDFSTools mhdfs = new HDFSTools();
-        List<String> lines = mhdfs.ReadFromHDFS(fileID + ".txt");
+        List<String> lines = HDFSTools.ReadFromHDFS(fileID + ".txt");
 		return lines;
 	}
 
 	@Override
 	public void addFiletoHDFS(String objFilePath, String sourcePath) throws IOException, URISyntaxException{
 		// TODO Auto-generated method stub
-		HDFSTools ht = new HDFSTools();
-		ht.WriteToHDFS(objFilePath, sourcePath);
+		HDFSTools.WriteToHDFS(objFilePath, sourcePath);
 	}
 
 	@Override
 	public void deleteFiletoHDFS(String objFilePath) throws IOException,
 			URISyntaxException {
 		// TODO Auto-generated method stub
-		HDFSTools ht = new HDFSTools();
-		ht.DeleteHDFSFile(objFilePath);
+		HDFSTools.DeleteHDFSFile(objFilePath);
 	}
+
+	
 
 }
