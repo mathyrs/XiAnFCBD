@@ -10,6 +10,7 @@ import org.rosuda.REngine.Rserve.RserveException;
 
 import com.inspur.domain.DataFile;
 import com.inspur.domain.User;
+import com.inspur.util.resultSetContentOpera;
 
 public interface IDataFileService {
 	
@@ -31,6 +32,10 @@ public interface IDataFileService {
 	public List<String[]> getRHiveQueryResult(String orgID, String startTime, String endTime, String planeType, String sortie, String deviceName, String planeID) throws SQLException, RserveException, REXPMismatchException;
 	
 	public List<String[]> getRHiveQueryResult(String hiveQL) throws SQLException, RserveException, REXPMismatchException;
+	
+	public resultSetContentOpera HiveQueryForResultSet(String hiveQL) throws SQLException;
+	
+	public resultSetContentOpera HiveQueryForResultSet(String orgID, String startTime, String endTime, String planeType, String sortie, String deviceName, String planeID) throws SQLException;
 
 
 }

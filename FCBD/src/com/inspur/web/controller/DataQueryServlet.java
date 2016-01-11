@@ -21,6 +21,8 @@ import com.inspur.domain.User;
 import com.inspur.service.IDataFileService;
 import com.inspur.service.impl.DataFileServiceImpl;
 import com.inspur.util.HDFSTools;
+import com.inspur.util.IFileContentOpera;
+import com.inspur.util.resultSetContentOpera;
 
 /**
  * @brief DataQueryServlet makes response to data query request
@@ -56,9 +58,13 @@ public class DataQueryServlet extends HttpServlet {
 		}
 		//get request type
 		String requestType = request.getParameter("requestType");
+		//final result supposed to be display on web page.
 		List<String[]> result = null;
+		IFileContentOpera rsco = null;
+		
 		String method = request.getParameter("method");
 		IDataFileService ifs = new DataFileServiceImpl();
+		//if value of method is "paint", the request is paint images by R.
 		if (method != null && method.equals("paint")) {
 			try {
 				long start = System.currentTimeMillis();
@@ -82,6 +88,7 @@ public class DataQueryServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//if value of requestType is "query", the request is data query by given parameters.
 		} else if (requestType.equals("query")) {
 			
 			String orgID = request.getParameter("orgID");
@@ -91,16 +98,14 @@ public class DataQueryServlet extends HttpServlet {
 			String sortie = request.getParameter("sortie");
 			String deviceName = request.getParameter("deviceName");
 			String planeID = request.getParameter("planeID");
-//			System.out.println(startTime);
-//			System.out.println(endTime);
+
 			//格式化日期字符串
 			SimpleDateFormat before = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat after = new SimpleDateFormat("yyyyMMdd");
 			try {
 				startTime = after.format(before.parse(startTime));
 				endTime = after.format(before.parse(endTime));
-//				System.out.println(startTime);
-//				System.out.println(endTime);
+
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -108,7 +113,7 @@ public class DataQueryServlet extends HttpServlet {
 			
 //			System.out.println(orgID);
 			
-			
+			//if value of method is "HiveQL", the request is hiveQL sentence generate by given parameters.
 			if (method != null && method.equals("HiveQL")) {
 				String HiveQL = ifs.getHiveQL(orgID, startTime, endTime, planeType, sortie, deviceName, planeID);
 				System.out.println("ajax:" + HiveQL);
@@ -116,10 +121,12 @@ public class DataQueryServlet extends HttpServlet {
 				
 			} else {
 				try {
-					result = ifs.getHiveQueryResult(orgID, startTime, endTime, planeType, sortie, deviceName, planeID);
-//					String imageFileName = UUID.randomUUID().toString();
-//					HDFSTools.copyFileHDFS2Local(this.getServletContext().getRealPath("/resources/img/" + imageFileName + ".pdf"), "hdfs://Master:9000/user/hadoop/tmp/" + "aa.pdf");
-//					request.getSession().setAttribute("imageFileName", imageFileName);
+					rsco = ifs.HiveQueryForResultSet(orgID, startTime, endTime, planeType, sortie, deviceName, planeID);
+//					result = ifs.getHiveQueryResult(orgID, startTime, endTime, planeType, sortie, deviceName, planeID);
+					//write result object into session;
+					request.getSession().setAttribute("result", rsco);
+					result = rsco.init();
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					ps.write(e.getMessage().getBytes("UTF-8"));
@@ -127,21 +134,46 @@ public class DataQueryServlet extends HttpServlet {
 				} 
 			}
 			
-			
+			//if value of requestType is "hive", the request is data query by given hiveQL.
 		} else if (requestType.equals("hive")) {
 			String hiveQL = request.getParameter("HiveQL");
 			try {
-				result = ifs.getHiveQueryResult(hiveQL);
-//				String imageFileName = UUID.randomUUID().toString();
-//				HDFSTools.copyFileHDFS2Local(this.getServletContext().getRealPath("/WEB-INF/tmpImages/" + imageFileName + ".pdf"), "hdfs://Master:9000/user/hadoop/tmp/" + "aa.pdf");
-//				request.getSession().setAttribute("imageFileName", imageFileName);
+				rsco = ifs.HiveQueryForResultSet(hiveQL);
+//				result = ifs.getHiveQueryResult(hiveQL);
+				//write result object into session;
+//				request.getSession().setAttribute("result", result);
+				request.getSession().setAttribute("result", rsco);
+				result = rsco.init();
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				ps.write(e.getMessage().getBytes("UTF-8"));
 				e.printStackTrace();
 			} 
+		} else if (null != method && method.equals("next")) {
+			IFileContentOpera content = (IFileContentOpera) request.getSession().getAttribute("result");
+			if (null != content) {
+				try {
+					result = content.getPageContent(1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		} else if (null != method && method.equals("previous")) {
+			IFileContentOpera content = (IFileContentOpera) request.getSession().getAttribute("result");
+			if (null != content) {
+				try {
+					result = content.getPageContent(-1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
+		//get the result
 		if (null != result) {
 			ps.write("<table border=\"1\" id=\"resultTable\" style=\"position:relative;background-color:white;\">".getBytes("UTF-8"));
 			for (Object[] temp : result) {

@@ -12,18 +12,15 @@ import java.util.List;
 import java.util.Properties;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
+import org.apache.hadoop.hive.jdbc.HiveBaseResultSet;
 
-/**
- * @class hiveTools
- * @author LiuKai
- */
+
 public class hiveTools {
 	private  String driverName;
 	private  String url;
 	private  String user;
 	private  String password;
 	
-
 	/**
 	 * @Title hiveTools
 	 * @Decription hiveTools class construction function
@@ -176,6 +173,17 @@ public class hiveTools {
 		funUpdate(conn, HiveSQL);	
 	}
 	
+	public void query22(Connection conn, String sql) throws SQLException{
+		Statement stmt = null;
+		ResultSet res = null;
+		stmt = conn.createStatement();	
+		res = stmt.executeQuery(sql);
+//		while(res.next()) {
+//			System.out.println(res.getString(1) );
+//		}	
+		
+	}
+	
 
 	/**
 	 * 
@@ -194,15 +202,23 @@ public class hiveTools {
 		PreparedStatement pstm = null;
 		ResultSet res = null;
 		
-		System.out.println(">>RUNING: query");
+		//System.out.println(">>RUNING: query");
 		long sysDateStart = System.currentTimeMillis(); 		   		 
 		pstm = conn.prepareStatement(sql);
 		
 		for(int i=0;i<params.length;i++){
 			pstm.setString(i+1, params[i]);
 		}
+		long sysDate1 = System.currentTimeMillis();
 		res = pstm.executeQuery();
+		long sysDate2 = System.currentTimeMillis();
+		long costTime1 = sysDate2 - sysDate1;
+		System.out.println("----Time for temp query is "+costTime1 + " ms.----");
 		Object result = rsh.handle(res);
+		long sysDate3 = System.currentTimeMillis();
+		long costTime2 = sysDate3 - sysDate2; 
+		System.out.println("----Time for data foemat is "+costTime2 + " ms.----");
+		
 		
 		// release(note:release res first)
 		res.close();
@@ -210,7 +226,7 @@ public class hiveTools {
 		
 		long sysDateStop = System.currentTimeMillis(); 
 		long costTime = sysDateStop - sysDateStart; 
-		System.out.println("----Time for query is "+costTime + " ms.----");	
+		//System.out.println("----Time for query is "+costTime + " ms.----");	
 		
 		return result;	
 	}
@@ -234,9 +250,14 @@ public class hiveTools {
 			   String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
 		
 		// step 1:check if temp table 'tmp' exist
+		long sysDate1 = System.currentTimeMillis();
 		String creatSql = "create table if not exists " + tmpTableName + " " + tableFormat + 
 				"row format delimited fields terminated by ','";
 		funUpdate(conn, creatSql);
+		long sysDate2 = System.currentTimeMillis();
+		long costTimeTablecheck = sysDate2 - sysDate1; 
+		System.out.println("----Step1:tmp check: time cost is "+costTimeTablecheck + " ms.----");	
+		
 		
 	    // step 2:make query and save the result into table tmp;
 		PreparedStatement pstm = null;
@@ -251,15 +272,81 @@ public class hiveTools {
 		
 		// release(note:release res first)
 		res.close();
-		pstm.close();
+		pstm.close();	
+		long sysDate3 = System.currentTimeMillis();
+		long costTimequery = sysDate3 - sysDate2; 
+		System.out.println("----Step2:save the result into table tmp:time cost is "+costTimequery + " ms.----");
 		
-		
-		// step 3:get tmp table 
+		// step 3:query tmp table 
 		String Hivesql = "SELECT * FROM "+ tmpTableName;
 		String params2[] = {};
 		@SuppressWarnings("unchecked")
 		List<String[]> result = (List<String[]>) query(conn, Hivesql, params2, new ArrayListHandler());
-		
+		long sysDate4 = System.currentTimeMillis();
+		long costTimeget = sysDate4 - sysDate3; 
+		System.out.println("----Step3:query tmp table: time cost is "+costTimeget + " ms.----");
 		return result;		
 	}
+	
+	
+	public resultSetContentOpera queryForResultSet(Connection conn,String tmpTableName,String tableFormat,
+			   String sql, String params[],ResultSetHandler<?> rsh) throws SQLException{
+		
+		// step 1:check if temp table 'tmp' exist
+		long sysDate1 = System.currentTimeMillis();
+		String creatSql = "create table if not exists " + tmpTableName + " " + tableFormat + 
+				"row format delimited fields terminated by ','";
+		funUpdate(conn, creatSql);
+		long sysDate2 = System.currentTimeMillis(); 
+		System.out.println("----Step1:tmp check: time cost is "+(sysDate2 - sysDate1) + " ms.----");	
+		
+		
+	    // step 2:make query and save the result into table tmp;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		pstm = conn.prepareStatement(sql);
+		for(int i=0;i<params.length;i++){
+			pstm.setString(i+1, params[i]);
+		}
+		res = pstm.executeQuery();
+		rsh.handle(res);
+		res.close();
+		pstm.close();	
+		long sysDate3 = System.currentTimeMillis();
+		System.out.println("----Step2:save the result into table tmp:time cost is "+(sysDate3 - sysDate2) + " ms.----");
+		
+		// step 3:query tmp table 
+		Statement stmt = null;
+		ResultSet res_tmp = null;
+		//HiveBaseResultSet res_tmp = null;
+		String Hivesql = "SELECT * FROM "+ tmpTableName;
+		stmt = conn.createStatement();	
+		res_tmp = stmt.executeQuery(Hivesql);
+		long sysDate4 = System.currentTimeMillis();
+		System.out.println("----Step3:query tmp table: time cost is "+(sysDate4 - sysDate3) + " ms.----");
+		
+		
+		// step 4: res content operation
+		resultSetContentOpera irscp = new resultSetContentOpera(res_tmp);
+		
+//		irscp.init();
+//		System.out.println("next page");
+//		irscp.getPageContent(1);
+//		System.out.println("next page");
+//		irscp.getPageContent(1);
+//		System.out.println("next page");
+//		irscp.getPageContent(1);
+//		System.out.println("last page");
+//		irscp.getPageContent(-1);
+//		System.out.println("next page");
+//		irscp.getPageContent(1);
+//		System.out.println("next page");
+//		irscp.getPageContent(1);
+
+		
+		return irscp;		
+	}
+	
+	
+	
 }

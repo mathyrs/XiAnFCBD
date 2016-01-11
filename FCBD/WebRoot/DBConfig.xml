@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DBC>
+	<driverName>com.mysql.jdbc.Driver</driverName> 
+        <sqlServerUrl>jdbc:mysql://192.168.1.107/gzyc</sqlServerUrl> 
+        <user>root</user>
+        <passWord>mysql</passWord>
+        <rServerIp>192.168.1.107</rServerIp>
+        <rServerPort>6311</rServerPort>
+</DBC>

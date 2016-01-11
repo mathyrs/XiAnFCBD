@@ -16,6 +16,8 @@ import com.inspur.domain.User;
 import com.inspur.service.IDataFileService;
 import com.inspur.util.ArrayListHandlerWithName;
 import com.inspur.util.HDFSTools;
+import com.inspur.util.hiveTools;
+import com.inspur.util.resultSetContentOpera;
 
 public class DataFileServiceImpl implements IDataFileService {
 
@@ -141,6 +143,33 @@ public class DataFileServiceImpl implements IDataFileService {
 		IDataFileDao ifd = new DataFileDaoImpl();
 		List<String[]> result = ifd.getFileContentByRHive("192.168.1.3", hiveQL, "FC2.R");
 		return result;
+	}
+
+	@Override
+	public resultSetContentOpera HiveQueryForResultSet(String hiveQL)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		hiveTools ht = new hiveTools();
+		
+		String tmpTableName = "tmp";
+		String tableFormat = 
+				" (ID int, TIME string, a int, b int, name string, value double, fliget string) ";
+		String params2[] = {};
+		
+		return ht.queryForResultSet(ht.getConnection(), tmpTableName,tableFormat,
+				hiveQL, params2,new ArrayListHandler());
+		
+	}
+
+	@Override
+	public resultSetContentOpera HiveQueryForResultSet(String orgID,
+			String startTime, String endTime, String planeType, String sortie,
+			String deviceName, String planeID) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		String hiveQL = getHiveQL(orgID, startTime, endTime, planeType, sortie, deviceName, planeID);
+		
+		return HiveQueryForResultSet(hiveQL);
 	}
 	
 }
